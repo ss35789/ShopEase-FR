@@ -4,6 +4,7 @@ import 'bootstrap-icons/font/bootstrap-icons.css';
 import './App.css'; // App.css 파일 import
 import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
 import Home from './pages/Home';
+import About from './pages/About';
 import ProductDetail from './pages/ProductDetail';
 import UserProfile from './pages/UserProfile';
 
@@ -21,6 +22,9 @@ function App() {
                             <ul className="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
                                 <li className="nav-item">
                                     <Link className="nav-link active" aria-current="page" to="/">Home</Link>
+                                </li>
+                                <li className="nav-item">
+                                    <Link className="nav-link" to="/about">About</Link>
                                 </li>
                             </ul>
                             <form className="d-flex">
@@ -45,6 +49,7 @@ function App() {
 
                 <Routes>
                     <Route path="/" element={<Home />} />
+                    <Route path="/about" element={<About />} />
                     <Route path="/product/:id" element={<ProductDetail />} />
                     <Route path="/user" element={<UserProfile />} />
                 </Routes>
