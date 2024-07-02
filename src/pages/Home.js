@@ -3,8 +3,6 @@ import { Link, useOutletContext } from 'react-router-dom';
 import styled from 'styled-components';
 import products from '../data/products'; // products 데이터를 가져옴
 
-
-
 const Container = styled.div`
   margin-top: 5rem;
 `;
