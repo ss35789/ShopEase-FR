@@ -36,3 +36,26 @@
     transform: rotate(360deg);
   }
 }
+
+/* App.css */
+.nav-link:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+}
+
+.profile {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  padding: 5px;
+  border-radius: 5px;
+  text-decoration: none; /* 링크의 기본 스타일 제거 */
+  color: inherit; /* 텍스트 색상을 상속 */
+}
+
+.profile:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+

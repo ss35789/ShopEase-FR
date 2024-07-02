@@ -1,10 +1,11 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap-icons/font/bootstrap-icons.css';
+import './App.css'; // App.css 파일 import
 import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
-import Home from './pages/Home.js';
-import About from './About';
-import Shop from './Shop';
+import Home from './pages/Home';
+import ProductDetail from './pages/ProductDetail';
+import UserProfile from './pages/UserProfile';
 
 function App() {
     return (
@@ -21,12 +22,6 @@ function App() {
                                 <li className="nav-item">
                                     <Link className="nav-link active" aria-current="page" to="/">Home</Link>
                                 </li>
-                                <li className="nav-item">
-                                    <Link className="nav-link" to="/about">About</Link>
-                                </li>
-                                <li className="nav-item">
-                                    <Link className="nav-link" to="/shop">Shop</Link>
-                                </li>
                             </ul>
                             <form className="d-flex">
                                 <button className="btn btn-outline-dark" type="submit">
@@ -34,6 +29,15 @@ function App() {
                                     Cart
                                     <span className="badge bg-dark text-white ms-1 rounded-pill">0</span>
                                 </button>
+                                <Link to="/user" className="profile ms-3">
+                                    <img
+                                        src="https://dummyimage.com/40x40/000/fff"
+                                        alt="Profile"
+                                        className="rounded-circle"
+                                        style={{ marginRight: '10px' }}
+                                    />
+                                    <span>Username</span>
+                                </Link>
                             </form>
                         </div>
                     </div>
@@ -41,8 +45,8 @@ function App() {
 
                 <Routes>
                     <Route path="/" element={<Home />} />
-                    <Route path="/about" element={<About />} />
-                    <Route path="/shop" element={<Shop />} />
+                    <Route path="/product/:id" element={<ProductDetail />} />
+                    <Route path="/user" element={<UserProfile />} />
                 </Routes>
             </div>
         </Router>
