@@ -9,6 +9,7 @@ import SearchResults from './pages/SearchResults';
 import Login from './pages/LoginAbout/Login';
 import SignUp from './pages/LoginAbout/SignUp';
 import ForgotID from './pages/LoginAbout/ForgotID';
+import Cart from "./pages/Cart";
 
 function AppRouter() {
     return (
@@ -23,6 +24,7 @@ function AppRouter() {
                     <Route path="login" element={<Login />} />
                     <Route path="signup" element={<SignUp />} />
                     <Route path="forgot-id" element={<ForgotID />} />
+                    <Route path="cart" element={<Cart />} /> {/* Cart 경로 추가 */}
                 </Route>
             </Routes>
         </Router>
