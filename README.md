@@ -1,70 +1,33 @@
-# Getting Started with Create React App
+![image](https://github.com/ss35789/ShopEase-FR/assets/55543713/98f1f193-85f1-4d18-bac5-4c3913a52407)
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+# ShopEase 
 
-In the project directory, you can run:
+이 쇼핑몰 사이트는 다양한 상품을 구매하고 판매할 수 있는 온라인 플랫폼입니다. 사용자들은 사이트에 가입하여 상품을 검색하고, 장바구니에 담고, 주문을 완료하며, 결제까지 진행할 수 있습니다. 또한, 구매한 상품에 대해 리뷰를 작성하여 다른 사용자들과 경험을 공유할 수 있습니다. 
 
-### `npm start`
+## 주요 기능
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### 1. 회원가입 및 로그인
+- 사용자들은 이메일과 비밀번호를 이용하여 회원가입을 할 수 있습니다.
+- 로그인 후, 사용자는 자신의 주문 내역과 장바구니를 관리할 수 있습니다.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### 2. 상품 검색 및 카테고리
+- 다양한 상품을 카테고리별로 검색할 수 있습니다.
+- 상품의 상세 정보를 확인할 수 있으며, 가격, 설명, 재고 상태 등을 확인할 수 있습니다.
 
-### `npm test`
+### 3. 장바구니
+- 사용자는 원하는 상품을 장바구니에 담을 수 있습니다.
+- 장바구니에 담긴 상품의 수량을 조정하거나 삭제할 수 있습니다.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### 4. 주문 및 결제 (미구현)
+- 사용자는 장바구니에 담긴 상품을 주문할 수 있습니다.
+- 다양한 결제 방법(신용카드, 페이팔 등)을 통해 결제를 완료할 수 있습니다.
+- 주문 내역을 확인하고, 주문 상태를 추적할 수 있습니다.
 
-### `npm run build`
+### 5. 리뷰 및 평점 (미구현)
+- 사용자는 구매한 상품에 대해 리뷰를 작성할 수 있습니다.
+- 리뷰를 통해 다른 사용자들이 상품에 대해 더 잘 알 수 있게 도와줍니다.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+### 6. 사용자 프로필 관리 (미구현)
+- 사용자는 자신의 프로필 정보를 수정할 수 있습니다.
+- 배송 주소와 연락처를 관리할 수 있습니다.
