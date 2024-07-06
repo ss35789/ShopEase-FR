@@ -89,12 +89,12 @@ function App() {
                         </button>
                         {isLoggedIn ? (
                             <div className="d-flex align-items-center ms-3">
-                                <img
-                                    src="https://dummyimage.com/40x40/000/fff"
-                                    alt="Profile"
-                                    className="rounded-circle"
-                                    style={{ marginRight: '10px' }}
-                                />
+                                {/*<img*/}
+                                {/*    src="https://dummyimage.com/40x40/000/fff"*/}
+                                {/*    alt="Profile"*/}
+                                {/*    className="rounded-circle"*/}
+                                {/*    style={{ marginRight: '10px' }}*/}
+                                {/*/>*/}
                                 <span>Username</span>
                                 <button className="btn btn-link" onClick={handleLogout}>Logout</button>
                             </div>
