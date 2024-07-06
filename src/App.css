@@ -78,3 +78,18 @@
     display: none; /* 중요한 버튼 숨기기 */
   }
 }
+
+
+.navbar-nav .nav-item .nav-link {
+  margin-right: 10px;
+}
+
+.navbar-toggler {
+  border: none;
+}
+
+@media (max-width: 992px) {
+  .search-input {
+    margin-bottom: 10px;
+  }
+}

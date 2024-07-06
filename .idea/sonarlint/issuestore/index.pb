@@ -8,8 +8,6 @@ A
 package.json,7\0\7030d0b2f71b999ff89a343de08c414af32fc93a
 A
 package-lock.json,f\a\fa288d1472d29beccb489a676f68739ad365fc47
-;
-src/App.css,a\a\aa7165aefcf8ee3d73539e99ab007daf1aa18d8d
 D
 src/data/products.js,0\b\0b8f6e6b4deae81c070749bfaa447c3e2acd74cc
 9

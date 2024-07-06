@@ -1,5 +1,5 @@
 // src/App.js
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import './App.css';
@@ -11,6 +11,7 @@ function App() {
     const navigate = useNavigate();
     const [searchTerm, setSearchTerm] = useState('');
     const [cartItems, setCartItems] = useState([]);
+    const [isNavbarCollapsed, setIsNavbarCollapsed] = useState(true);
 
     const handleSearchInputChange = (event) => {
         setSearchTerm(event.target.value);
@@ -47,10 +48,19 @@ function App() {
                     <Link className="navbar-brand" to="/">
                         <img src="/ShopCart.png" alt="Logo" style={{ width: '40px', marginRight: '10px' }} />Shop Ease
                     </Link>
-                    <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <button
+                        className="navbar-toggler"
+                        type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#navbarNav"
+                        aria-controls="navbarNav"
+                        aria-expanded={!isNavbarCollapsed}
+                        aria-label="Toggle navigation"
+                        onClick={() => setIsNavbarCollapsed(!isNavbarCollapsed)}
+                    >
                         <span className="navbar-toggler-icon"></span>
                     </button>
-                    <div className="collapse navbar-collapse" id="navbarSupportedContent">
+                    <div className={`collapse navbar-collapse ${isNavbarCollapsed ? '' : 'show'}`} id="navbarNav">
                         <ul className="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
                             <li className="nav-item">
                                 <Link className="nav-link active" aria-current="page" to="/">Home</Link>
