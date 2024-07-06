@@ -8,23 +8,15 @@ A
 package.json,7\0\7030d0b2f71b999ff89a343de08c414af32fc93a
 A
 package-lock.json,f\a\fa288d1472d29beccb489a676f68739ad365fc47
-<
-src/index.js,f\9\f900edc44cb929c2267a16100a32851f6d5b477d
 ;
 src/App.css,a\a\aa7165aefcf8ee3d73539e99ab007daf1aa18d8d
-N
-src/pages/LoginAbout/Login.css,0\0\0060883b2bc2a406cc7f33acfe2f4052417ad566
 D
 src/data/products.js,0\b\0b8f6e6b4deae81c070749bfaa447c3e2acd74cc
 9
 	README.md,8\e\8ec9a00bfd09b3190ac6b22251dbb1aa95a0579d
 <
 src/logo.svg,6\d\6d3a8cd532ece5b4ddbd4b3b6a678ba686d300bc
-@
-src/AppRouter.js,4\1\41ce8373e11cfae86883e9faf397132360fc55d8
 ?
 src/App.test.js,9\2\923703ced91ac38943d37930d9d27a7ebe8f01ad
 B
 src/pages/About.js,2\d\2d7320b35f29191ca1027384c32c76ac03e327fe
-A
-src/pages/Cart.js,4\c\4c91bf863fed6658a8aa072fdccae6edffd33909

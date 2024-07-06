@@ -1,17 +1,23 @@
+// src/pages/LoginAbout/Login.js
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import './Login.css'; // Login.css 파일을 import
+import { useAuth } from '../../context/AuthContext';
+import './Login.css';
 
 function Login() {
-    const [username, setUsername] = useState('');
+    const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const navigate = useNavigate();
+    const { login } = useAuth();
 
-    const handleLogin = (event) => {
+    const handleLogin = async (event) => {
         event.preventDefault();
-        // 여기에 실제 로그인 로직을 추가합니다.
-        // 로그인 성공 시:
-        navigate('/');
+        try {
+            await login(email, password);
+            navigate('/');
+        } catch (error) {
+            alert(error.message);
+        }
     };
 
     return (
@@ -20,13 +26,13 @@ function Login() {
                 <h2 className="text-center">Login</h2>
                 <form onSubmit={handleLogin}>
                     <div className="mb-3">
-                        <label htmlFor="username" className="form-label">Username</label>
+                        <label htmlFor="email" className="form-label">Email</label>
                         <input
-                            type="text"
+                            type="email"
                             className="form-control"
-                            id="username"
-                            value={username}
-                            onChange={(e) => setUsername(e.target.value)}
+                            id="email"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
                         />
                     </div>
                     <div className="mb-3">
