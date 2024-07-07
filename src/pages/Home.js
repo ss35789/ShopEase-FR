@@ -40,7 +40,7 @@ const handleScroll = () => {
 };
 
 function Home() {
-    const { handleAddToCart } = useOutletContext();
+    const { handleAddToCart, handleRemoveFromCart, isInCart } = useOutletContext();
 
     useEffect(() => {
         window.addEventListener('scroll', handleScroll);
@@ -91,8 +91,11 @@ function Home() {
                                             >
                                                 View Options
                                             </Link>
-                                            <button className="btn btn-outline-dark mt-auto" onClick={() => handleAddToCart(product)}>
-                                                <i className="bi-cart-fill me-1"></i> Add to Cart
+                                            <button
+                                                className={`btn ${isInCart(product.id) ? 'btn-success' : 'btn-outline-dark'} mt-auto`}
+                                                onClick={() => isInCart(product.id) ? handleRemoveFromCart(product) : handleAddToCart(product)}
+                                            >
+                                                {isInCart(product.id) ? 'Already in Cart' : 'Add to Cart'}
                                             </button>
                                         </div>
                                     </div>

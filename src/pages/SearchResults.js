@@ -1,5 +1,5 @@
 import React from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useOutletContext, Link } from 'react-router-dom';
 import products from '../data/products';
 import { highlight } from '../utils/highlight';
 
@@ -7,6 +7,7 @@ function SearchResults() {
     const location = useLocation();
     const queryParams = new URLSearchParams(location.search);
     const query = queryParams.get('query')?.toLowerCase() || '';
+    const { handleAddToCart, handleRemoveFromCart, isInCart } = useOutletContext();
 
     const filteredProducts = products.filter(product =>
         product.name.toLowerCase().includes(query) ||
@@ -34,6 +35,23 @@ function SearchResults() {
                                         ) : (
                                             <span>₩{product.price.toLocaleString()}</span>
                                         )}
+                                    </div>
+                                </div>
+                                <div className="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                                    <div className="d-flex justify-content-center">
+                                        <Link
+                                            className="btn btn-outline-dark mt-auto me-2"
+                                            to={`/product/${product.id}`}
+                                            state={{ product }}
+                                        >
+                                            View Options
+                                        </Link>
+                                        <button
+                                            className={`btn ${isInCart(product.id) ? 'btn-success' : 'btn-outline-dark'} mt-auto`}
+                                            onClick={() => isInCart(product.id) ? handleRemoveFromCart(product) : handleAddToCart(product)}
+                                        >
+                                            {isInCart(product.id) ? 'Already in Cart' : 'Add to Cart'}
+                                        </button>
                                     </div>
                                 </div>
                             </div>

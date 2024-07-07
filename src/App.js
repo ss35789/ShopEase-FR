@@ -1,23 +1,17 @@
-import React, { useState, useEffect } from 'react';
+// src/App.js
+import React, { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import './App.css';
 import { Link, useNavigate, Outlet } from 'react-router-dom';
+import { useAuth } from './context/AuthContext';
 
 function App() {
-    const [searchTerm, setSearchTerm] = useState('');
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
-    const [cartItems, setCartItems] = useState([]);
+    const { user, logout } = useAuth();
     const navigate = useNavigate();
-
-    useEffect(() => {
-        // 로그인 상태를 확인하는 로직을 추가할 수 있습니다.
-        // 예를 들어, 로컬 스토리지나 쿠키에서 토큰을 확인하는 로직.
-        // fetch('/api/auth/status')
-        //     .then(response => response.json())
-        //     .then(data => setIsLoggedIn(data.isLoggedIn))
-        //     .catch(error => console.error('Error:', error));
-    }, []);
+    const [searchTerm, setSearchTerm] = useState('');
+    const [cartItems, setCartItems] = useState([]);
+    const [isNavbarCollapsed, setIsNavbarCollapsed] = useState(true);
 
     const handleSearchInputChange = (event) => {
         setSearchTerm(event.target.value);
@@ -29,12 +23,8 @@ function App() {
     };
 
     const handleLogout = () => {
-        setIsLoggedIn(false);
-        // 로컬 스토리지나 쿠키에서 토큰을 삭제하는 로직을 추가할 수 있습니다.
-        // fetch('/api/auth/logout', { method: 'POST' })
-        //     .then(response => response.json())
-        //     .then(data => console.log(data))
-        //     .catch(error => console.error('Error:', error));
+        logout();
+        navigate('/');
     };
 
     const handleAddToCart = (product) => {
@@ -47,6 +37,22 @@ function App() {
             }
             return [...prevItems, { ...product, quantity: 1 }];
         });
+        // Send the product to the backend
+        // fetch('/api/cart', { method: 'POST', body: JSON.stringify(product) })
+        //   .then(response => response.json())
+        //   .then(data => console.log(data));
+    };
+
+    const handleRemoveFromCart = (product) => {
+        setCartItems((prevItems) => prevItems.filter(item => item.id !== product.id));
+        // Remove the product from the backend
+        // fetch(`/api/cart/${product.id}`, { method: 'DELETE' })
+        //   .then(response => response.json())
+        //   .then(data => console.log(data));
+    };
+
+    const isInCart = (productId) => {
+        return cartItems.some(item => item.id === productId);
     };
 
     const cartItemCount = cartItems.reduce((total, item) => total + item.quantity, 0);
@@ -56,11 +62,21 @@ function App() {
             <nav className="navbar navbar-expand-lg navbar-light bg-light">
                 <div className="container px-4 px-lg-5">
                     <Link className="navbar-brand" to="/">
-                        <img src="/ShopCart.png" alt="Logo" style={{ width: '40px', marginRight: '10px' }} />Shop Ease</Link>
-                    <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <img src="/ShopCart.png" alt="Logo" style={{ width: '40px', marginRight: '10px' }} />Shop Ease
+                    </Link>
+                    <button
+                        className="navbar-toggler"
+                        type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#navbarNav"
+                        aria-controls="navbarNav"
+                        aria-expanded={!isNavbarCollapsed}
+                        aria-label="Toggle navigation"
+                        onClick={() => setIsNavbarCollapsed(!isNavbarCollapsed)}
+                    >
                         <span className="navbar-toggler-icon"></span>
                     </button>
-                    <div className="collapse navbar-collapse" id="navbarSupportedContent">
+                    <div className={`collapse navbar-collapse ${isNavbarCollapsed ? '' : 'show'}`} id="navbarNav">
                         <ul className="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
                             <li className="nav-item">
                                 <Link className="nav-link active" aria-current="page" to="/">Home</Link>
@@ -87,15 +103,9 @@ function App() {
                             Cart
                             <span className="badge bg-dark text-white ms-1 rounded-pill">{cartItemCount}</span>
                         </button>
-                        {isLoggedIn ? (
+                        {user ? (
                             <div className="d-flex align-items-center ms-3">
-                                <img
-                                    src="https://dummyimage.com/40x40/000/fff"
-                                    alt="Profile"
-                                    className="rounded-circle"
-                                    style={{ marginRight: '10px' }}
-                                />
-                                <span>Username</span>
+                                <span>{user.userName}</span>
                                 <button className="btn btn-link" onClick={handleLogout}>Logout</button>
                             </div>
                         ) : (
@@ -104,7 +114,7 @@ function App() {
                     </div>
                 </div>
             </nav>
-            <Outlet context={{ cartItems, handleAddToCart, setCartItems }} />
+            <Outlet context={{ cartItems, handleAddToCart, handleRemoveFromCart, setCartItems, isInCart }} />
         </div>
     );
 }
