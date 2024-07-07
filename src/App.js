@@ -37,6 +37,22 @@ function App() {
             }
             return [...prevItems, { ...product, quantity: 1 }];
         });
+        // Send the product to the backend
+        // fetch('/api/cart', { method: 'POST', body: JSON.stringify(product) })
+        //   .then(response => response.json())
+        //   .then(data => console.log(data));
+    };
+
+    const handleRemoveFromCart = (product) => {
+        setCartItems((prevItems) => prevItems.filter(item => item.id !== product.id));
+        // Remove the product from the backend
+        // fetch(`/api/cart/${product.id}`, { method: 'DELETE' })
+        //   .then(response => response.json())
+        //   .then(data => console.log(data));
+    };
+
+    const isInCart = (productId) => {
+        return cartItems.some(item => item.id === productId);
     };
 
     const cartItemCount = cartItems.reduce((total, item) => total + item.quantity, 0);
@@ -98,7 +114,7 @@ function App() {
                     </div>
                 </div>
             </nav>
-            <Outlet context={{ cartItems, handleAddToCart, setCartItems }} />
+            <Outlet context={{ cartItems, handleAddToCart, handleRemoveFromCart, setCartItems, isInCart }} />
         </div>
     );
 }
