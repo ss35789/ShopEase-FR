@@ -22,9 +22,13 @@ function App() {
         navigate(`/search?query=${searchTerm}`);
     };
 
-    const handleLogout = () => {
-        logout();
-        navigate('/');
+    const handleLogout = async () => {
+        try {
+            await logout();
+            navigate('/');
+        } catch (error) {
+            console.error('Logout failed', error);
+        }
     };
 
     const handleAddToCart = (product) => {
@@ -37,18 +41,10 @@ function App() {
             }
             return [...prevItems, { ...product, quantity: 1 }];
         });
-        // Send the product to the backend
-        // fetch('/api/cart', { method: 'POST', body: JSON.stringify(product) })
-        //   .then(response => response.json())
-        //   .then(data => console.log(data));
     };
 
     const handleRemoveFromCart = (product) => {
         setCartItems((prevItems) => prevItems.filter(item => item.id !== product.id));
-        // Remove the product from the backend
-        // fetch(`/api/cart/${product.id}`, { method: 'DELETE' })
-        //   .then(response => response.json())
-        //   .then(data => console.log(data));
     };
 
     const isInCart = (productId) => {
