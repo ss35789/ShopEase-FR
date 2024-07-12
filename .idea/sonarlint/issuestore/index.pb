@@ -18,8 +18,6 @@ B
 src/pages/About.js,2\d\2d7320b35f29191ca1027384c32c76ac03e327fe
 P
  src/pages/LoginAbout/ForgotID.js,0\c\0c06bec1dfe72c37081dbbc7013511538e48637b
-F
-src/utils/highlight.js,a\e\ae9a87ab361bb5b3a631af671f9c50cc36440f00
 H
 src/pages/UserProfile.js,e\b\eb82bc406354acbac95891eb86e534938a9ea08b
 =

@@ -40,8 +40,7 @@ const handleScroll = () => {
 };
 
 function Home() {
-    const { handleAddToCart, handleRemoveFromCart, isInCart } = useOutletContext();
-    const [items, setItems] = useState([]);
+    const { handleAddToCart, handleRemoveFromCart, isInCart, items, setItems } = useOutletContext();
 
     useEffect(() => {
         const fetchProducts = async () => {
@@ -59,7 +58,7 @@ function Home() {
         return () => {
             window.removeEventListener('scroll', handleScroll);
         };
-    }, []);
+    }, [setItems]);
 
     return (
         <Container>

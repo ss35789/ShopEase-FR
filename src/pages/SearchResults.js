@@ -1,17 +1,15 @@
 import React from 'react';
 import { useLocation, useOutletContext, Link } from 'react-router-dom';
-import products from '../data/products';
 import { highlight } from '../utils/highlight';
 
 function SearchResults() {
     const location = useLocation();
     const queryParams = new URLSearchParams(location.search);
     const query = queryParams.get('query')?.toLowerCase() || '';
-    const { handleAddToCart, handleRemoveFromCart, isInCart } = useOutletContext();
+    const { handleAddToCart, handleRemoveFromCart, isInCart, items } = useOutletContext();
 
-    const filteredProducts = products.filter(product =>
-        product.name.toLowerCase().includes(query) ||
-        product.content.toLowerCase().includes(query)
+    const filteredProducts = items.filter(product =>
+        (product.name?.toLowerCase().includes(query) || product.content?.toLowerCase().includes(query))
     );
 
     return (
@@ -22,15 +20,15 @@ function SearchResults() {
                     filteredProducts.map(product => (
                         <div className="col mb-5" key={product.itemKey}>
                             <div className="card h-100">
-                                <img className="card-img-top" src={`https://dummyimage.com/450x300/dee2e6/6c757d.jpg&text=${product.name}`} alt={product.name} />
+                                <img className="card-img-top" src={product.img || `https://dummyimage.com/450x300/dee2e6/6c757d.jpg&text=${product.name}`} alt={product.name} />
                                 <div className="card-body p-4">
                                     <div className="text-center">
-                                        <h5 className="fw-bolder">{highlight(product.name, query)}</h5>
-                                        <p>{highlight(product.content, query)}</p>
-                                        {product.originalPrice ? (
+                                        <h5 className="fw-bolder">{highlight(product.name || '', query)}</h5>
+                                        <p>{highlight(product.content || '', query)}</p>
+                                        {product.salePrice ? (
                                             <>
-                                                <span className="text-muted text-decoration-line-through">₩{product.originalPrice.toLocaleString()}</span>
-                                                <span> ₩{product.price.toLocaleString()}</span>
+                                                <span className="text-muted text-decoration-line-through">₩{product.price.toLocaleString()}</span>
+                                                <span> ₩{product.salePrice.toLocaleString()}</span>
                                             </>
                                         ) : (
                                             <span>₩{product.price.toLocaleString()}</span>

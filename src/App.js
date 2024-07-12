@@ -10,6 +10,7 @@ function App() {
     const navigate = useNavigate();
     const [searchTerm, setSearchTerm] = useState('');
     const [cartItems, setCartItems] = useState([]);
+    const [items, setItems] = useState([]); // 상품 데이터를 상태로 추가
     const [isNavbarCollapsed, setIsNavbarCollapsed] = useState(true);
 
     const handleSearchInputChange = (event) => {
@@ -109,7 +110,7 @@ function App() {
                     </div>
                 </div>
             </nav>
-            <Outlet context={{ cartItems, handleAddToCart, handleRemoveFromCart, setCartItems, isInCart }} />
+            <Outlet context={{ cartItems, handleAddToCart, handleRemoveFromCart, setCartItems, isInCart, items, setItems }} />
         </div>
     );
 }
