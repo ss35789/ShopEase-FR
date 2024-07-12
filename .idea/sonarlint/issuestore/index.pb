@@ -8,8 +8,6 @@ A
 package.json,7\0\7030d0b2f71b999ff89a343de08c414af32fc93a
 A
 package-lock.json,f\a\fa288d1472d29beccb489a676f68739ad365fc47
-D
-src/data/products.js,0\b\0b8f6e6b4deae81c070749bfaa447c3e2acd74cc
 9
 	README.md,8\e\8ec9a00bfd09b3190ac6b22251dbb1aa95a0579d
 <
@@ -30,3 +28,5 @@ N
 src/pages/LoginAbout/Login.css,0\0\0060883b2bc2a406cc7f33acfe2f4052417ad566
 N
 src/pages/LoginAbout/SignUp.js,e\b\eb558667a18cfab93bbe06c0055e2f29d553f2fe
+J
+src/context/AuthContext.js,9\5\95b0a68b56c214629666306ac9d606e55f236fce

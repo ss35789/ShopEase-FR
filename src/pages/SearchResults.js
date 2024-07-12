@@ -11,7 +11,7 @@ function SearchResults() {
 
     const filteredProducts = products.filter(product =>
         product.name.toLowerCase().includes(query) ||
-        product.description.toLowerCase().includes(query)
+        product.content.toLowerCase().includes(query)
     );
 
     return (
@@ -20,13 +20,13 @@ function SearchResults() {
             <div className="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
                 {filteredProducts.length > 0 ? (
                     filteredProducts.map(product => (
-                        <div className="col mb-5" key={product.id}>
+                        <div className="col mb-5" key={product.itemKey}>
                             <div className="card h-100">
                                 <img className="card-img-top" src={`https://dummyimage.com/450x300/dee2e6/6c757d.jpg&text=${product.name}`} alt={product.name} />
                                 <div className="card-body p-4">
                                     <div className="text-center">
                                         <h5 className="fw-bolder">{highlight(product.name, query)}</h5>
-                                        <p>{highlight(product.description, query)}</p>
+                                        <p>{highlight(product.content, query)}</p>
                                         {product.originalPrice ? (
                                             <>
                                                 <span className="text-muted text-decoration-line-through">₩{product.originalPrice.toLocaleString()}</span>
@@ -41,16 +41,16 @@ function SearchResults() {
                                     <div className="d-flex justify-content-center">
                                         <Link
                                             className="btn btn-outline-dark mt-auto me-2"
-                                            to={`/product/${product.id}`}
+                                            to={`/product/${product.itemKey}`}
                                             state={{ product }}
                                         >
                                             View Options
                                         </Link>
                                         <button
-                                            className={`btn ${isInCart(product.id) ? 'btn-success' : 'btn-outline-dark'} mt-auto`}
-                                            onClick={() => isInCart(product.id) ? handleRemoveFromCart(product) : handleAddToCart(product)}
+                                            className={`btn ${isInCart(product.itemKey) ? 'btn-success' : 'btn-outline-dark'} mt-auto`}
+                                            onClick={() => isInCart(product.itemKey) ? handleRemoveFromCart(product) : handleAddToCart(product)}
                                         >
-                                            {isInCart(product.id) ? 'Already in Cart' : 'Add to Cart'}
+                                            {isInCart(product.itemKey) ? 'Already in Cart' : 'Add to Cart'}
                                         </button>
                                     </div>
                                 </div>

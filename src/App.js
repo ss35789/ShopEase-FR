@@ -1,4 +1,3 @@
-// src/App.js
 import React, { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap-icons/font/bootstrap-icons.css';
@@ -33,10 +32,10 @@ function App() {
 
     const handleAddToCart = (product) => {
         setCartItems((prevItems) => {
-            const itemExists = prevItems.find(item => item.id === product.id);
+            const itemExists = prevItems.find(item => item.itemKey === product.itemKey);
             if (itemExists) {
                 return prevItems.map(item =>
-                    item.id === product.id ? { ...item, quantity: item.quantity + 1 } : item
+                    item.itemKey === product.itemKey ? { ...item, quantity: item.quantity + 1 } : item
                 );
             }
             return [...prevItems, { ...product, quantity: 1 }];
@@ -44,11 +43,11 @@ function App() {
     };
 
     const handleRemoveFromCart = (product) => {
-        setCartItems((prevItems) => prevItems.filter(item => item.id !== product.id));
+        setCartItems((prevItems) => prevItems.filter(item => item.itemKey !== product.itemKey));
     };
 
-    const isInCart = (productId) => {
-        return cartItems.some(item => item.id === productId);
+    const isInCart = (itemKey) => {
+        return cartItems.some(item => item.itemKey === itemKey);
     };
 
     const cartItemCount = cartItems.reduce((total, item) => total + item.quantity, 0);
