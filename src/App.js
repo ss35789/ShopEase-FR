@@ -1,3 +1,4 @@
+// src/App.js
 import React, { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap-icons/font/bootstrap-icons.css';
@@ -10,7 +11,7 @@ function App() {
     const navigate = useNavigate();
     const [searchTerm, setSearchTerm] = useState('');
     const [cartItems, setCartItems] = useState([]);
-    const [items, setItems] = useState([]); // 상품 데이터를 상태로 추가
+    const [items, setItems] = useState([]);
     const [isNavbarCollapsed, setIsNavbarCollapsed] = useState(true);
 
     const handleSearchInputChange = (event) => {
@@ -80,6 +81,11 @@ function App() {
                             <li className="nav-item">
                                 <Link className="nav-link" to="/about">About</Link>
                             </li>
+                            {user?.role === 'ROLE_ADMIN' && (
+                                <li className="nav-item">
+                                    <Link className="nav-link" to="/admin/add-product">Add Product</Link>
+                                </li>
+                            )}
                         </ul>
                         <form className="d-flex mx-auto" style={{ flex: 1, maxWidth: '700px' }} onSubmit={handleSearchSubmit}>
                             <input

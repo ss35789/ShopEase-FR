@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link, useOutletContext } from 'react-router-dom';
 import styled from 'styled-components';
 import axios from 'axios';
+import { useAuth } from '../context/AuthContext';
 
 const Container = styled.div`
   margin-top: 5rem;
@@ -35,12 +36,14 @@ const handleScroll = () => {
     const scrollPosition = window.scrollY;
     const maxScroll = document.body.scrollHeight - window.innerHeight;
     const scrollFraction = scrollPosition / maxScroll;
-    const hue = scrollFraction * 30; // 색조 범위를 더욱 줄임
-    document.body.style.backgroundColor = `hsl(${hue}, 20%, 95%)`; // 채도와 명도를 고정
+    const hue = scrollFraction * 30;
+    document.body.style.backgroundColor = `hsl(${hue}, 20%, 95%)`;
 };
 
 function Home() {
     const { handleAddToCart, handleRemoveFromCart, isInCart, items, setItems } = useOutletContext();
+    const { user } = useAuth();
+    const [selectedProduct, setSelectedProduct] = useState(null);
 
     useEffect(() => {
         const fetchProducts = async () => {
@@ -59,6 +62,22 @@ function Home() {
             window.removeEventListener('scroll', handleScroll);
         };
     }, [setItems]);
+
+    const handleDeleteProduct = (product) => {
+        setSelectedProduct(product);
+    };
+
+    const confirmDeleteProduct = async () => {
+        if (selectedProduct) {
+            try {
+                await axios.delete(`${process.env.REACT_APP_BE_URL}/api/items/${selectedProduct.itemKey}`);
+                setItems((prevItems) => prevItems.filter(item => item.itemKey !== selectedProduct.itemKey));
+                setSelectedProduct(null);
+            } catch (error) {
+                console.error('There was an error deleting the product!', error);
+            }
+        }
+    };
 
     return (
         <Container>
@@ -108,6 +127,14 @@ function Home() {
                                             >
                                                 {isInCart(product.itemKey) ? 'Already in Cart' : 'Add to Cart'}
                                             </button>
+                                            {user?.role === 'ROLE_ADMIN' && (
+                                                <button
+                                                    className="btn btn-danger mt-auto ms-2"
+                                                    onClick={() => handleDeleteProduct(product)}
+                                                >
+                                                    Delete
+                                                </button>
+                                            )}
                                         </div>
                                     </div>
                                 </Card>
@@ -116,6 +143,26 @@ function Home() {
                     </div>
                 </div>
             </Section>
+
+            {selectedProduct && (
+                <div className="modal fade show" style={{ display: 'block' }} tabIndex="-1">
+                    <div className="modal-dialog">
+                        <div className="modal-content">
+                            <div className="modal-header">
+                                <h5 className="modal-title">Confirm Deletion</h5>
+                                <button type="button" className="btn-close" onClick={() => setSelectedProduct(null)}></button>
+                            </div>
+                            <div className="modal-body">
+                                <p>Are you sure you want to delete the product <strong>{selectedProduct.name}</strong>?</p>
+                            </div>
+                            <div className="modal-footer">
+                                <button type="button" className="btn btn-secondary" onClick={() => setSelectedProduct(null)}>Cancel</button>
+                                <button type="button" className="btn btn-danger" onClick={confirmDeleteProduct}>Delete</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            )}
         </Container>
     );
 }
