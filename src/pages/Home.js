@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useOutletContext } from 'react-router-dom';
 import styled from 'styled-components';
-import axios from 'axios';
+import axios from '../api/axios';
 import { useAuth } from '../context/AuthContext';
 
 const Container = styled.div`
@@ -48,7 +48,7 @@ function Home() {
     useEffect(() => {
         const fetchProducts = async () => {
             try {
-                const response = await axios.get(`${process.env.REACT_APP_BE_URL}/api/items`);
+                const response = await axios.get('/api/items');
                 setItems(response.data);
             } catch (error) {
                 console.error('There was an error fetching the products!', error);
@@ -70,7 +70,7 @@ function Home() {
     const confirmDeleteProduct = async () => {
         if (selectedProduct) {
             try {
-                await axios.delete(`${process.env.REACT_APP_BE_URL}/api/items/${selectedProduct.itemKey}`);
+                await axios.delete(`/api/items/${selectedProduct.itemKey}`);
                 setItems((prevItems) => prevItems.filter(item => item.itemKey !== selectedProduct.itemKey));
                 setSelectedProduct(null);
             } catch (error) {

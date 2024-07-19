@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import axios from '../api/axios';
 
 function AddProduct() {
     const navigate = useNavigate();
@@ -18,7 +18,7 @@ function AddProduct() {
                 salePrice: salePrice ? parseInt(salePrice) : null,
                 img
             };
-            await axios.post(`${process.env.REACT_APP_BE_URL}/api/items`, newProduct);
+            await axios.post('/api/items', newProduct);
             navigate('/');
         } catch (error) {
             console.error('There was an error adding the product!', error);
