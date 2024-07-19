@@ -1,24 +1,60 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from '../api/axios';
+import styled from 'styled-components';
+
+const Container = styled.div`
+  margin-top: 50px;
+`;
+
+const ImgPreview = styled.img`
+  max-width: 100%;
+  max-height: 200px;
+  margin-top: 10px;
+`;
+
+const RemoveButton = styled.button`
+  display: block;
+  margin-top: 10px;
+`;
 
 function AddProduct() {
     const navigate = useNavigate();
     const [name, setName] = useState('');
     const [price, setPrice] = useState('');
     const [salePrice, setSalePrice] = useState('');
-    const [img, setImg] = useState('');
+    const [img, setImg] = useState(null);
+
+    const handleImageUpload = (event) => {
+        const file = event.target.files[0];
+        if (file) {
+            setImg(file);
+        }
+    };
+
+    const handleRemoveImage = () => {
+        setImg(null);
+    };
 
     const handleSubmit = async (event) => {
         event.preventDefault();
+        const formData = new FormData();
+        const itemDTO = {
+            name,
+            price,
+            salePrice,
+        };
+        formData.append('itemDTO', new Blob([JSON.stringify(itemDTO)], { type: 'application/json' }));
+        if (img) {
+            formData.append('img', img);
+        }
+
         try {
-            const newProduct = {
-                name,
-                price: parseInt(price),
-                salePrice: salePrice ? parseInt(salePrice) : null,
-                img
-            };
-            await axios.post('/api/items', newProduct);
+            await axios.post('/api/items', formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            });
             navigate('/');
         } catch (error) {
             console.error('There was an error adding the product!', error);
@@ -26,7 +62,7 @@ function AddProduct() {
     };
 
     return (
-        <div className="container mt-5">
+        <Container className="container">
             <h2>Add Product</h2>
             <form onSubmit={handleSubmit}>
                 <div className="mb-3">
@@ -42,12 +78,18 @@ function AddProduct() {
                     <input type="number" className="form-control" id="salePrice" value={salePrice} onChange={(e) => setSalePrice(e.target.value)} />
                 </div>
                 <div className="mb-3">
-                    <label htmlFor="img" className="form-label">Image URL</label>
-                    <input type="text" className="form-control" id="img" value={img} onChange={(e) => setImg(e.target.value)} />
+                    <label htmlFor="img" className="form-label">Image</label>
+                    <input type="file" className="form-control" id="img" onChange={handleImageUpload} />
+                    {img && (
+                        <div>
+                            <ImgPreview src={URL.createObjectURL(img)} alt="Preview" />
+                            <RemoveButton type="button" className="btn btn-danger" onClick={handleRemoveImage}>Remove Image</RemoveButton>
+                        </div>
+                    )}
                 </div>
                 <button type="submit" className="btn btn-primary">Add Product</button>
             </form>
-        </div>
+        </Container>
     );
 }
 
