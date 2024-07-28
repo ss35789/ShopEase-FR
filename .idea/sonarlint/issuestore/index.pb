@@ -8,20 +8,14 @@ A
 package.json,7\0\7030d0b2f71b999ff89a343de08c414af32fc93a
 A
 package-lock.json,f\a\fa288d1472d29beccb489a676f68739ad365fc47
-D
-src/data/products.js,0\b\0b8f6e6b4deae81c070749bfaa447c3e2acd74cc
 9
 	README.md,8\e\8ec9a00bfd09b3190ac6b22251dbb1aa95a0579d
 <
 src/logo.svg,6\d\6d3a8cd532ece5b4ddbd4b3b6a678ba686d300bc
-?
-src/App.test.js,9\2\923703ced91ac38943d37930d9d27a7ebe8f01ad
 B
 src/pages/About.js,2\d\2d7320b35f29191ca1027384c32c76ac03e327fe
 P
  src/pages/LoginAbout/ForgotID.js,0\c\0c06bec1dfe72c37081dbbc7013511538e48637b
-F
-src/utils/highlight.js,a\e\ae9a87ab361bb5b3a631af671f9c50cc36440f00
 H
 src/pages/UserProfile.js,e\b\eb82bc406354acbac95891eb86e534938a9ea08b
 =

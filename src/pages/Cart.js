@@ -29,29 +29,16 @@ const CartSummary = styled.div`
 `;
 
 function Cart() {
-    const { cartItems, setCartItems } = useOutletContext(); // cartItems와 setCartItems를 context에서 가져옴
+    const { cartItems, setCartItems } = useOutletContext();
 
-    const handleRemove = (productId) => {
-        const updatedCart = cartItems.filter(product => product.id !== productId);
+    const handleRemove = (itemKey) => {
+        const updatedCart = cartItems.filter(product => product.itemKey !== itemKey);
         setCartItems(updatedCart);
-
-        // 백엔드 서버에 데이터 업데이트가 필요한 경우 여기에 추가
-        // 예를 들어, 사용자 세션에 저장된 장바구니 데이터를 업데이트하는 경우:
-        // fetch('/api/cart/remove', {
-        //     method: 'POST',
-        //     headers: {
-        //         'Content-Type': 'application/json',
-        //     },
-        //     body: JSON.stringify({ id: productId }),
-        // })
-        // .then(response => response.json())
-        // .then(data => console.log(data))
-        // .catch(error => console.error('Error:', error));
     };
 
-    const handleQuantityChange = (productId, quantity) => {
+    const handleQuantityChange = (itemKey, quantity) => {
         setCartItems(cartItems.map(item =>
-            item.id === productId ? { ...item, quantity: Math.max(1, item.quantity + quantity) } : item
+            item.itemKey === itemKey ? { ...item, quantity: Math.max(1, item.quantity + quantity) } : item
         ));
     };
 
@@ -67,18 +54,18 @@ function Cart() {
             </CartHeader>
             <div className="mt-5">
                 {cartItems.map(product => (
-                    <CartItem key={product.id} className="row">
+                    <CartItem key={product.itemKey} className="row">
                         <div className="col-md-2">
-                            <img src={product.image} alt={product.name} className="img-fluid" />
+                            <img src={product.img} alt={product.name} className="img-fluid" />
                         </div>
                         <div className="col-md-4">
                             <h5>{product.name}</h5>
                         </div>
                         <div className="col-md-2">
                             <div className="d-flex align-items-center">
-                                <button className="btn btn-outline-secondary me-2" onClick={() => handleQuantityChange(product.id, -1)}>-</button>
+                                <button className="btn btn-outline-secondary me-2" onClick={() => handleQuantityChange(product.itemKey, -1)}>-</button>
                                 <span>{product.quantity}</span>
-                                <button className="btn btn-outline-secondary ms-2" onClick={() => handleQuantityChange(product.id, 1)}>+</button>
+                                <button className="btn btn-outline-secondary ms-2" onClick={() => handleQuantityChange(product.itemKey, 1)}>+</button>
                             </div>
                         </div>
                         <div className="col-md-2">
@@ -88,7 +75,7 @@ function Cart() {
                             )}
                         </div>
                         <div className="col-md-2 text-end">
-                            <button className="btn btn-outline-danger" onClick={() => handleRemove(product.id)}>Remove</button>
+                            <button className="btn btn-outline-danger" onClick={() => handleRemove(product.itemKey)}>Remove</button>
                         </div>
                     </CartItem>
                 ))}
@@ -101,16 +88,6 @@ function Cart() {
                     <button className="btn btn-success ms-3" onClick={() => {
                         // 결제 처리 로직
                         // 결제 정보를 서버로 전송
-                        // fetch('/api/checkout', {
-                        //     method: 'POST',
-                        //     headers: {
-                        //         'Content-Type': 'application/json',
-                        //     },
-                        //     body: JSON.stringify(cartItems),
-                        // })
-                        // .then(response => response.json())
-                        // .then(data => console.log(data))
-                        // .catch(error => console.error('Error:', error));
                     }}>Checkout</button>
                 </div>
             </div>

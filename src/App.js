@@ -11,6 +11,7 @@ function App() {
     const navigate = useNavigate();
     const [searchTerm, setSearchTerm] = useState('');
     const [cartItems, setCartItems] = useState([]);
+    const [items, setItems] = useState([]);
     const [isNavbarCollapsed, setIsNavbarCollapsed] = useState(true);
 
     const handleSearchInputChange = (event) => {
@@ -33,10 +34,10 @@ function App() {
 
     const handleAddToCart = (product) => {
         setCartItems((prevItems) => {
-            const itemExists = prevItems.find(item => item.id === product.id);
+            const itemExists = prevItems.find(item => item.itemKey === product.itemKey);
             if (itemExists) {
                 return prevItems.map(item =>
-                    item.id === product.id ? { ...item, quantity: item.quantity + 1 } : item
+                    item.itemKey === product.itemKey ? { ...item, quantity: item.quantity + 1 } : item
                 );
             }
             return [...prevItems, { ...product, quantity: 1 }];
@@ -44,11 +45,11 @@ function App() {
     };
 
     const handleRemoveFromCart = (product) => {
-        setCartItems((prevItems) => prevItems.filter(item => item.id !== product.id));
+        setCartItems((prevItems) => prevItems.filter(item => item.itemKey !== product.itemKey));
     };
 
-    const isInCart = (productId) => {
-        return cartItems.some(item => item.id === productId);
+    const isInCart = (itemKey) => {
+        return cartItems.some(item => item.itemKey === itemKey);
     };
 
     const cartItemCount = cartItems.reduce((total, item) => total + item.quantity, 0);
@@ -80,6 +81,11 @@ function App() {
                             <li className="nav-item">
                                 <Link className="nav-link" to="/about">About</Link>
                             </li>
+                            {user?.role === 'ROLE_ADMIN' && (
+                                <li className="nav-item">
+                                    <Link className="nav-link" to="/admin/add-product">Add Product</Link>
+                                </li>
+                            )}
                         </ul>
                         <form className="d-flex mx-auto" style={{ flex: 1, maxWidth: '700px' }} onSubmit={handleSearchSubmit}>
                             <input
@@ -110,7 +116,7 @@ function App() {
                     </div>
                 </div>
             </nav>
-            <Outlet context={{ cartItems, handleAddToCart, handleRemoveFromCart, setCartItems, isInCart }} />
+            <Outlet context={{ cartItems, handleAddToCart, handleRemoveFromCart, setCartItems, isInCart, items, setItems }} />
         </div>
     );
 }
